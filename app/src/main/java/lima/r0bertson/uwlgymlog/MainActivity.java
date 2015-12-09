@@ -1,11 +1,14 @@
 package lima.r0bertson.uwlgymlog;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,16 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    public void newExerciseClick(View view){
+        Intent intent = new Intent(MainActivity.this, AddExerciseToRoutine.class);
+        startActivity(intent);
+    }
+
+    public void registerActivityClick(View view){
+        Intent intent = new Intent(MainActivity.this, RegisterNewActivity.class);
+        startActivity(intent);
     }
 }

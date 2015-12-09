@@ -10,11 +10,20 @@
     <include layout="@layout/common_layout"/>
 
     <Button
+        android:layout_width="149dp"
+        android:layout_height="wrap_content"
+        android:text="New Exercise"
+        android:id="@+id/bt_add_exercise"
+        android:layout_gravity="center_horizontal"
+        android:onClick="newExerciseClick" />
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Routine"
-        android:id="@+id/bt_add_routine"
-        android:layout_gravity="center_horizontal" />
+        android:text="Register Activity"
+        android:id="@+id/bt_reg_activity"
+        android:layout_gravity="center_horizontal"
+        android:onClick="registerActivityClick" />
 
 
 </LinearLayout>

@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ADD EXERCISE"
-        android:id="@+id/add_exercise"
+        android:id="@+id/bt_add_exercise"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/textView"
         android:layout_toEndOf="@+id/textView" />
@@ -52,9 +52,9 @@
         android:layout_height="wrap_content"
         android:text="FINISH"
         android:id="@+id/finish_exercise"
-        android:layout_alignTop="@+id/add_exercise"
-        android:layout_toRightOf="@+id/add_exercise"
-        android:layout_toEndOf="@+id/add_exercise"
+        android:layout_alignTop="@+id/bt_add_exercise"
+        android:layout_toRightOf="@+id/bt_add_exercise"
+        android:layout_toEndOf="@+id/bt_add_exercise"
         android:layout_marginLeft="38dp"
         android:layout_marginStart="38dp"
         android:layout_gravity="center_horizontal" />

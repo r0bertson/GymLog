@@ -4,10 +4,25 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="lima.r0bertson.uwlgymlog.AddNewExercise"
+    tools:context="lima.r0bertson.uwlgymlog.RegisterNewActivity"
     android:orientation="vertical">
     <include layout="@layout/common_layout"
         android:id="@+id/include" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SELECT EXERCISE"
+        android:id="@+id/entryExerciseName"
+        android:layout_below="@+id/include"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerExerciseList" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,25 +30,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="left"
         android:weightSum="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Entry exercise name:"
-            android:id="@+id/entryExerciseName"
-            android:layout_below="@+id/include"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
 
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/editExerciseNameText"
-
-            android:layout_below="@+id/textView_entryname"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="false"
-            android:editable="true"
-            android:layout_weight="0.28" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,7 +42,7 @@
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Entry load:"
+        android:text="Insert Load"
         android:id="@+id/entryExcersiseLoad"
         android:layout_below="@+id/include"
         android:layout_alignParentLeft="true"
@@ -54,7 +51,7 @@
         <EditText
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/t_load"
             android:layout_below="@+id/textView_entryLoad"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="false"
@@ -70,7 +67,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Entry number of repetitions:"
+            android:text="Insert number of repetitions"
             android:id="@+id/textView_entryrepetition"
             android:layout_below="@+id/include"
             android:layout_alignParentLeft="true"
@@ -79,7 +76,7 @@
         <EditText
             android:layout_width="164dp"
             android:layout_height="wrap_content"
-            android:id="@+id/repetition"
+            android:id="@+id/t_repetition"
             android:layout_below="@+id/textView_entryrepetition"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="false"
@@ -95,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ADD EXERCISE"
-            android:id="@+id/add_exercise"
+            android:id="@+id/bt_add_exercise"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/textView"
             android:layout_toEndOf="@+id/textView" />
@@ -103,14 +100,15 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="FINISH"
-            android:id="@+id/finish_exercise"
-            android:layout_alignTop="@+id/add_exercise"
-            android:layout_toRightOf="@+id/add_exercise"
-            android:layout_toEndOf="@+id/add_exercise"
+            android:text="CANCEL"
+            android:id="@+id/bt_cancel"
+            android:layout_alignTop="@+id/bt_add_exercise"
+            android:layout_toRightOf="@+id/bt_add_exercise"
+            android:layout_toEndOf="@+id/bt_add_exercise"
             android:layout_marginLeft="38dp"
             android:layout_marginStart="38dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:onClick="cancelClick" />
     </LinearLayout>
 
 </LinearLayout>

@@ -17,16 +17,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddRoutine"
-            android:label="@string/title_activity_add_routine" >
+            android:name=".AddExerciseToRoutine"
+            android:label="AddExerciseToRoutine" >
         </activity>
         <activity
             android:name=".AddExercise"
             android:label="@string/title_activity_add_exercise" >
         </activity>
         <activity
-            android:name=".AddNewExercise"
-            android:label="@string/title_activity_add_new_exercise" >
+            android:name=".RegisterNewActivity"
+            android:label="RegisterNewActivity" >
         </activity>
     </application>
 
