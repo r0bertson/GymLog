@@ -28,6 +28,19 @@
             android:name=".RegisterNewActivity"
             android:label="RegisterNewActivity" >
         </activity>
+        <activity
+            android:name=".FormatData"
+            android:label="@string/title_activity_format_data" >
+        </activity>
+        <activity
+        android:name=".AboutActivity"
+        android:label="@string/title_activity_about" >
+    </activity>
+        <activity
+            android:name=".MenuActivity"
+            android:label="@string/title_activity_menu" >
+        </activity>
+
     </application>
 
 </manifest>

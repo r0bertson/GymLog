@@ -7,4 +7,15 @@
     <string name="title_activity_add_routine">AddRoutine</string>
     <string name="title_activity_add_exercise">AddExercise</string>
     <string name="title_activity_add_new_exercise">AddNewExercise</string>
+
+    <string-array name = "options">
+        <item>Home</item>
+        <item>Statistics</item>
+        <item>Format Data</item>
+        <item>About</item>
+        <item>Back</item>
+    </string-array>
+    <string name="title_activity_format_data">FormatData</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_menu">MenuActivity</string>
 </resources>

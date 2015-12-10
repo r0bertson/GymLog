@@ -9,20 +9,24 @@
 
     <include layout="@layout/common_layout"/>
 
-    <Button
-        android:layout_width="149dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Exercise"
-        android:id="@+id/bt_add_exercise"
-        android:layout_gravity="center_horizontal"
-        android:onClick="newExerciseClick" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/txt_formula"
+        android:layout_gravity="center_horizontal" />
 
+    <EditText
+        android:layout_width="72dp"
+        android:layout_height="48dp"
+        android:id="@+id/edit_formula"
+        android:layout_gravity="center_horizontal"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register Activity"
-        android:id="@+id/bt_reg_activity"
+        android:text="FORMAT"
+        android:id="@+id/bt_format"
         android:layout_gravity="center_horizontal"
         android:onClick="registerActivityClick" />
 </LinearLayout>
-
