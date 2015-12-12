@@ -3,6 +3,7 @@ package lima.r0bertson.uwlgymlog;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +13,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
-
+        MyDBHandler db = new MyDBHandler(this, null, null, 1);
+        db.getWritableDatabase();
     }
 
     @Override
@@ -41,10 +43,13 @@ public void newExerciseClick(View view){
         Intent intent = new Intent(MainActivity.this, AddExerciseToRoutine.class);
         startActivity(intent);
 }
+
 public void registerActivityClick(View view){
         Intent intent = new Intent(MainActivity.this, RegisterNewActivity.class);
         startActivity(intent);
         }
+
+
     public void clickIconMenu(View view){
         Intent intent = new Intent(MainActivity.this, MenuActivity.class);
         startActivity(intent);

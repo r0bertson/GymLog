@@ -13,9 +13,11 @@
         <item>Statistics</item>
         <item>Format Data</item>
         <item>About</item>
-        <item>Back</item>
     </string-array>
+
+    <string name="about">Texto falando sobre o app e o desenvolvedor...</string>
     <string name="title_activity_format_data">FormatData</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_statistics">StatisticsActivity</string>
 </resources>

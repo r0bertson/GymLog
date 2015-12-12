@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -17,12 +18,20 @@ import android.widget.TextView;
 
 public class AddExerciseToRoutine extends Activity {
     private EditText txt_name;
-
+    private EditText txt_loadunit;
+    private EditText txt_repunit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_exercise);
         txt_name = (EditText) findViewById(R.id.t_name);
+        txt_loadunit = (EditText) findViewById(R.id.t_load_unit);
+        txt_repunit = (EditText) findViewById(R.id.t_rep_unit);
+
+    }
+    public void clickIconMenu(View view){
+        Intent intent = new Intent(AddExerciseToRoutine.this, MenuActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -52,6 +61,8 @@ public class AddExerciseToRoutine extends Activity {
     }
     public void addExerciseToRoutineClick(View view){
         String name = txt_name.getText().toString();
+        String load_unit = txt_loadunit.getText().toString();
+        String rep_unit = txt_repunit.getText().toString();
         MyDBHandler db = new MyDBHandler(this, null, null, 1);
         if(name.equals("")){
             final Dialog dialog = new Dialog(AddExerciseToRoutine.this);
@@ -77,7 +88,7 @@ public class AddExerciseToRoutine extends Activity {
             //MESSAGE WARNING THAT FIELD CANNOT BE NULL
 
         }else if(db.exerciseNameIsValid(name)){
-            db.addExerciseOnRoutine(name);
+            db.addExerciseOnRoutine(name, load_unit, rep_unit);
         }
         else{
 

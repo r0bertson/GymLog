@@ -21,10 +21,6 @@
             android:label="AddExerciseToRoutine" >
         </activity>
         <activity
-            android:name=".AddExercise"
-            android:label="@string/title_activity_add_exercise" >
-        </activity>
-        <activity
             android:name=".RegisterNewActivity"
             android:label="RegisterNewActivity" >
         </activity>
@@ -33,14 +29,17 @@
             android:label="@string/title_activity_format_data" >
         </activity>
         <activity
-        android:name=".AboutActivity"
-        android:label="@string/title_activity_about" >
-    </activity>
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about" >
+        </activity>
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu" >
         </activity>
-
+        <activity
+            android:name=".StatisticsActivity"
+            android:label="@string/title_activity_statistics" >
+        </activity>
     </application>
 
 </manifest>

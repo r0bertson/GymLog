@@ -2,6 +2,7 @@ package lima.r0bertson.uwlgymlog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -152,5 +153,10 @@ public class RegisterNewActivity extends Activity implements AdapterView.OnItemS
     }
     public void cancelClick(View view){
         finish();
+    }
+
+    public void clickIconMenu(View view){
+        Intent intent = new Intent(RegisterNewActivity.this, MenuActivity.class);
+        startActivity(intent);
     }
 }

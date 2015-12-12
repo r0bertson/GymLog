@@ -1,6 +1,7 @@
 package lima.r0bertson.uwlgymlog;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -15,12 +17,16 @@ import java.util.Random;
 public class FormatData extends AppCompatActivity {
     TextView formula;
     int[] values;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_format_data);
     }
-
+    public void clickIconMenu(View view){
+        Intent intent = new Intent(FormatData.this, MenuActivity.class);
+        startActivity(intent);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -63,11 +69,14 @@ public class FormatData extends AppCompatActivity {
         return values;
 
     }
-    public void formatClick(){
-        int result = Integer.parseInt(formula.getText().toString());
+    public void formatClick(View view){
+        EditText userInput = (EditText) findViewById(R.id.edit_formula);
+        System.out.println(userInput.getText().toString() + "     " + values [3]);
+        int result = Integer.parseInt(userInput.getText().toString());
         if(validateFormula(values[3], result)){
-            //TODO
-            //FORMAT DATABASES
+            MyDBHandler db = new MyDBHandler(this, null, null, 1);
+            db.format();
+            finish();
         }
         else{
             final Dialog dialog = new Dialog(FormatData.this);
