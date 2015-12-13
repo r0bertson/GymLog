@@ -1,6 +1,8 @@
 package lima.r0bertson.uwlgymlog;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,37 +32,46 @@ public class StatisticsActivity extends Activity {
         graph = (GraphView) findViewById(R.id.graph_statistics);
         loadSpinnerData();
 
+
+        //when we select an item on the spinner, reload the information and draw graph
         spinner_stat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // your code for setting the image based on the item clicked....here
-                String selected = spinner_stat.getSelectedItem().toString();
-                //do search and get data
 
-                //set the data and make the graph show it
+                String selected = spinner_stat.getSelectedItem().toString();
+                //connect to the database and get data
                 connectAndRefresh(selected);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
             }
-
         });
     }
+
+
     public void connectAndRefresh(String name){
         MyDBHandler db = new MyDBHandler(this, null, null, 1);
         ArrayList<Statistics> st = db.getStatistics(name);
         setGraph(st);
     }
 
+    /**
+     * Use the data obtained by the method connectAndRefresh() to draw
+     * the graph using the API GraphView
+     */
     public void setGraph(ArrayList<Statistics> st){
+        //defines an array of datapoint
         DataPoint[] datapoint = new DataPoint[st.size()];
         for(int i = 0; i<st.size();i++){
-            datapoint[i] = new DataPoint(st.get(i).getLoad(),st.get(i).getLoad());
+            datapoint[i] = new DataPoint(i,st.get(i).getLoad());
         }
         BarGraphSeries<DataPoint> series2 = new BarGraphSeries<DataPoint>(datapoint);
+
         graph.addSeries(series2);
+        series2.setSpacing(25);
+        series2.setDrawValuesOnTop(true);
+        series2.setValuesOnTopColor(Color.BLACK);
     }
 
     @Override
@@ -72,18 +83,16 @@ public class StatisticsActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-
+    /**
+     * Load the exercises names stored in the database and put them on the spinner
+     */
     private void loadSpinnerData() {
         // database handler
         MyDBHandler db = new MyDBHandler(this, null, null, 1);
@@ -95,6 +104,14 @@ public class StatisticsActivity extends Activity {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
         // attaching data adapter to spinner
         spinner_stat.setAdapter(dataAdapter);
+    }
+
+    /**
+     * Method that allows the invocation of the menu in this activity
+     */
+    public void clickIconMenu(View view){
+        Intent intent = new Intent(StatisticsActivity.this, MenuActivity.class);
+        startActivity(intent);
     }
 
 }

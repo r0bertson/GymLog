@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by r0bertson on 09/12/2015.
+ * Performs all the database transactions.
+ * This class is based on the examples displayed on the following website:
+ * http://www.techotopia.com/index.php/An_Android_Studio_SQLite_Database_Tutorial
+ * Last visit: 10/12/15.
  */
 public class MyDBHandler extends SQLiteOpenHelper {
 
@@ -22,7 +25,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "uwlgymdb";
-
 
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NAME = "name";
@@ -41,9 +43,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        createTables(db);
+         createTables(db);
     }
 
+    /**
+     * performs the creaton of the databases, if they are not already in the system
+     */
     public void createTables(SQLiteDatabase db){
         String CREATE_EXERCISES_TABLE = "CREATE TABLE " + TABLE_EXERCISES + "("  + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_NAME
                 + " TEXT," + COLUMN_LOAD + " INTEGER,"+ COLUMN_REPETITIONS + " INTEGER," + COLUMN_DATE + " DATE)";
@@ -51,6 +56,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
         String CREATE_ROUTINE_TABLE = "CREATE TABLE " + ROUTINE_TABLE + "(" + COLUMN_NAME + " TEXT," + COLUMN_LOAD_UNIT+" TEXT,"+ COLUMN_REP_UNIT+ " TEXT)";
         db.execSQL(CREATE_ROUTINE_TABLE);
     }
+
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion,
                           int newVersion) {
@@ -61,6 +68,10 @@ public class MyDBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /*
+    performs the insertion of the new exercise to the routine_table
+    that only stores the name and the load and repetition units
+     */
     public void addExerciseOnRoutine( String ex_name, String ex_loadunit, String ex_repunit){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -71,6 +82,10 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    /*
+    performs the insertion of the new exercise made by the user
+    recors the name, the load and repetitions done an finally the date.
+     */
     public void addExercise(Exercise ex) {
 
         ContentValues values = new ContentValues();
@@ -85,53 +100,31 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public boolean deleteExercise(String ex_name) {
 
-        boolean result = false;
-
-        String query = "SELECT * FROM " + TABLE_EXERCISES + " WHERE " + COLUMN_NAME + " = \'" + ex_name + "\'";
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        Exercise ex = new Exercise();
-
-        if (cursor.moveToFirst()) {
-            ex.set_id(Integer.parseInt(cursor.getString(0)));
-            db.delete(TABLE_EXERCISES, COLUMN_ID + " = ?",
-                    new String[] { String.valueOf(ex.get_id()) });
-            cursor.close();
-            result = true;
-        }
-        db.close();
-        return result;
-    }
-
-
+    /*
+    Verifies if the exercise name inserted by the user is already in the database
+     */
     public boolean exerciseNameIsValid(String ex_name){
         String query = "SELECT * FROM " + ROUTINE_TABLE + " WHERE " + COLUMN_NAME + " = \'" + ex_name + "\'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.getCount() == 0){
-
-            System.out.println("exerciseNameIsValid: Returned true");
             return true;
         }
         else{
-            System.out.println("exerciseNameIsValid: Returned false");
-           // System.out.println(cursor.getString(1));
             return false;
 
         }
     }
-
+    /*
+    Search in the database for all the exercises names registered.
+    This method is used to get the list of exercises into the spinners of the activities.
+    */
     public List<String> getAllExercises(){
         String selectQuery = "SELECT "+COLUMN_NAME+" FROM " + ROUTINE_TABLE;
         List<String> exercises = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
@@ -139,38 +132,39 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 System.out.println(cursor.getString(0));
             } while (cursor.moveToNext());
         }
-
         // closing connection
         cursor.close();
         db.close();
-
         // returning exercises
         return exercises;
     }
+
+    //Performs the formatting and recreation of the tables
     public void format(){
        // String formatQuery = "DROP TABLE " + ROUTINE_TABLE+" , "+ TABLE_EXERCISES+";";
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EXERCISES);
         db.execSQL("DROP TABLE IF EXISTS " + ROUTINE_TABLE);
         createTables(db);
-        //db.execSQL("DROP DATABASE "+ DATABASE_NAME);
-        //onCreate(db);
     }
-
+    /*
+    Get the data stored about the desired exercise. This method is used
+    by the StatisticsActivity to get the information about the exercises and then
+    display in the graph.
+    */
     public ArrayList<Statistics> getStatistics(String name){
         String selectQuery = "SELECT * FROM " +TABLE_EXERCISES+ " WHERE "+ COLUMN_NAME+"=\'"+name+"\'";
         ArrayList<Statistics> statistics = new ArrayList<Statistics>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 int load = Integer.parseInt(cursor.getString(cursor.getColumnIndex("load")));
                 String date = cursor.getString(cursor.getColumnIndex("date"));
 
-                Statistics st = new Statistics(load, date);
-                statistics.add(st);
+                Statistics st = new Statistics(load, date); //create a new Statistic
+                statistics.add(st); //add to the list
                 System.out.println(cursor.getString(0));
             } while (cursor.moveToNext());
         }

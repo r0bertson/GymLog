@@ -13,6 +13,7 @@
         <item>Statistics</item>
         <item>Format Data</item>
         <item>About</item>
+        <item>Back</item>
     </string-array>
 
     <string name="about">Texto falando sobre o app e o desenvolvedor...</string>

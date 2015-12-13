@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-/**
- * Created by r0bertson on 10/12/2015.
- */
+
 
 /**
  * Activity responsible for showing the menu when the user tap the gym button.
@@ -40,8 +38,10 @@ public class MenuActivity extends ListActivity {
        switch(position){
            case 0:{
                //home
-               finish(); //finish the activity (MenuActivity)
-            return;
+               finish(); //finish the activity (MenuActivity) and come back to the mainActivity
+               Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+               startActivity(intent);
+            break;
            }
            case 1:{
             //statistics
@@ -64,6 +64,9 @@ public class MenuActivity extends ListActivity {
                startActivity(intent);
                break;
            }
+           default:
+               finish();
+
        }
     }
 }

@@ -1,10 +1,12 @@
 package lima.r0bertson.uwlgymlog;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class AboutActivity extends Activity {
 
@@ -13,6 +15,7 @@ public class AboutActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -23,16 +26,18 @@ public class AboutActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Method that allows the invocation of the menu in this activity
+     */
+    public void clickIconMenu(View view){
+        Intent intent = new Intent(AboutActivity.this, MenuActivity.class);
+        startActivity(intent);
     }
 }

@@ -23,17 +23,14 @@ public class FormatData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_format_data);
     }
-    public void clickIconMenu(View view){
-        Intent intent = new Intent(FormatData.this, MenuActivity.class);
-        startActivity(intent);
-    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_format_data, menu);
         formula = (TextView) findViewById(R.id.txt_formula);
-        values = newFormula();
-        formula.setText(values[0]+" + "+values[1]+" - "+values[2]+" = ?");
+        values = newFormula(); // creates a new formula
+        formula.setText(values[0] + " + " + values[1] + " - " + values[2] + " = ?"); //displays the formula
         return true;
     }
 
@@ -52,6 +49,11 @@ public class FormatData extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Creates a new expression to show
+     * this method is called in every creation of this activity
+     * so, the expression can be different on every load.
+     */
     public int[] newFormula(){
         Random r = new Random();
         int x, y, z;
@@ -69,29 +71,32 @@ public class FormatData extends AppCompatActivity {
         return values;
 
     }
+
+    /**
+     * Perform the business involving the click on the button FORMAT
+     * First, verify  if the user inserted the right value on the field
+     * if not, notify. if yes, try to format and recreate the database.
+     * Then, show a message and finish the intent.
+     */
     public void formatClick(View view){
         EditText userInput = (EditText) findViewById(R.id.edit_formula);
         System.out.println(userInput.getText().toString() + "     " + values [3]);
         int result = Integer.parseInt(userInput.getText().toString());
-        if(validateFormula(values[3], result)){
+        if(validateFormula(values[3], result)){ //verifying answer
             MyDBHandler db = new MyDBHandler(this, null, null, 1);
-            db.format();
-            finish();
-        }
-        else{
+            db.format(); //performing format and recreation
+
+
             final Dialog dialog = new Dialog(FormatData.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_box);
-
-            // set the custom dialog components - text and button
             TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
             text.setText("Alert message:");
             TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
-            image.setText("The provided result is incorrect.");
+            image.setText("The database was successfully formatted.");
             Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
             // if button is clicked, close the custom dialog
             dialogButton.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
@@ -99,9 +104,30 @@ public class FormatData extends AppCompatActivity {
                 }
             });
             dialog.show();
-            //message
+            finish();//closing the intent
+        }
+        else{
+            final Dialog dialog = new Dialog(FormatData.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_box);
+            TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
+            text.setText("Alert message:");
+            TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
+            image.setText("The provided result is incorrect.");
+            Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
+            // if button is clicked, close the custom dialog
+            dialogButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+
+                }
+            });
+            dialog.show();
         }
     }
+
+    //VALIDATE IF THE USER INSERTED THE RIGHT ANSWER TO THE EXPRESSION
     public boolean validateFormula(int a, int b){
         if (a == b){
             return true;
@@ -109,5 +135,14 @@ public class FormatData extends AppCompatActivity {
         else{
             return false;
         }
+    }
+
+
+    /**
+     * Method that allows the invocation of the menu in this activity
+     */
+    public void clickIconMenu(View view){
+        Intent intent = new Intent(FormatData.this, MenuActivity.class);
+        startActivity(intent);
     }
 }

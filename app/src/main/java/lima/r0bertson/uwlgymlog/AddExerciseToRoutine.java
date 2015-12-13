@@ -20,6 +20,7 @@ public class AddExerciseToRoutine extends Activity {
     private EditText txt_name;
     private EditText txt_loadunit;
     private EditText txt_repunit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,10 +30,7 @@ public class AddExerciseToRoutine extends Activity {
         txt_repunit = (EditText) findViewById(R.id.t_rep_unit);
 
     }
-    public void clickIconMenu(View view){
-        Intent intent = new Intent(AddExerciseToRoutine.this, MenuActivity.class);
-        startActivity(intent);
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,12 +41,7 @@ public class AddExerciseToRoutine extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -56,20 +49,25 @@ public class AddExerciseToRoutine extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    //method of the cancel button
     public void cancelClick(View view){
         finish();
     }
+
+    /**
+     * Add exercise to the database, storing its name, load and repetition units
+     * this method do not allow the user to let the name blank
+     * and also query the db to see if the exercise is already in it
+     */
     public void addExerciseToRoutineClick(View view){
         String name = txt_name.getText().toString();
         String load_unit = txt_loadunit.getText().toString();
         String rep_unit = txt_repunit.getText().toString();
         MyDBHandler db = new MyDBHandler(this, null, null, 1);
-        if(name.equals("")){
+        if(name.equals("")){ //MESSAGE SHOWING THAT THE FIELD CANNOT BE BLANK
             final Dialog dialog = new Dialog(AddExerciseToRoutine.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_box);
-
-            // set the custom dialog components - text and button
             TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
             text.setText("Alert message:");
             TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
@@ -77,26 +75,19 @@ public class AddExerciseToRoutine extends Activity {
             Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
             // if button is clicked, close the custom dialog
             dialogButton.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
-
                 }
             });
             dialog.show();
-            //MESSAGE WARNING THAT FIELD CANNOT BE NULL
-
         }else if(db.exerciseNameIsValid(name)){
             db.addExerciseOnRoutine(name, load_unit, rep_unit);
         }
-        else{
-
+        else{ //MESSAGE SHOWING THAT THE EXERCISE IS ALREADY IN THE DB
             final Dialog dialog = new Dialog(AddExerciseToRoutine.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_box);
-
-            // set the custom dialog components - text and button
             TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
             text.setText("Alert message:");
             TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
@@ -104,7 +95,6 @@ public class AddExerciseToRoutine extends Activity {
             Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
             // if button is clicked, close the custom dialog
             dialogButton.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
@@ -112,8 +102,14 @@ public class AddExerciseToRoutine extends Activity {
                 }
             });
             dialog.show();
-            //MESSAGE WARNING THAT THE EXERCISE IS ALREADY IN DATABASE
-        }
+           }
+    }
 
+    /**
+     * Method that allows the invocation of the menu in this activity
+     */
+    public void clickIconMenu(View view){
+        Intent intent = new Intent(AddExerciseToRoutine.this, MenuActivity.class);
+        startActivity(intent);
     }
 }

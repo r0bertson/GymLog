@@ -6,6 +6,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="lima.r0bertson.uwlgymlog.RegisterNewActivity"
     android:orientation="vertical">
+
     <include layout="@layout/common_layout"
         android:id="@+id/include" />
 
@@ -23,79 +24,59 @@
         android:layout_height="wrap_content"
         android:id="@+id/spinnerExerciseList" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:gravity="left"
-        android:weightSum="1">
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:gravity="left"
-        android:weightSum="1">
-        <TextView
+    <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Insert Load"
-        android:id="@+id/entryExcersiseLoad"
-        android:layout_below="@+id/include"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:rowCount="2"
+        android:columnCount="3">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Insert load"
+            android:id="@+id/entryExcersiseLoad"
+            android:layout_below="@+id/include"/>
 
         <EditText
-            android:layout_width="200dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:id="@+id/t_load"
             android:layout_below="@+id/textView_entryLoad"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="false"
-            android:editable="true"
-            android:layout_weight="0.51" />
+            android:editable="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/txt_loadunit" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:gravity="left"
-        android:weightSum="1">
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Insert number of repetitions"
+            android:text="Insert number \nof repetitions"
             android:id="@+id/textView_entryrepetition"
             android:layout_below="@+id/include"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
         <EditText
-            android:layout_width="140dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:id="@+id/t_repetition"
             android:layout_below="@+id/textView_entryrepetition"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="false"
             android:editable="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:id="@+id/txt_repunit"
-            android:layout_weight="0.63" />
-    </LinearLayout>
+            android:id="@+id/txt_repunit"/>
+    </GridLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
