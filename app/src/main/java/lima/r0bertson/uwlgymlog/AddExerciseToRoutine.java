@@ -69,9 +69,9 @@ public class AddExerciseToRoutine extends Activity {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_box);
             TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
-            text.setText("Alert message:");
+            text.setText(R.string.alert);
             TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
-            image.setText("You must provide a name to the exercise.");
+            image.setText(R.string.alert_blank_name);
             Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
             // if button is clicked, close the custom dialog
             dialogButton.setOnClickListener(new View.OnClickListener() {
@@ -82,23 +82,44 @@ public class AddExerciseToRoutine extends Activity {
             });
             dialog.show();
         }else if(db.exerciseNameIsValid(name)){
+            //ADD THE EXERCISE ON THE ROUTINE TABLE
             db.addExerciseOnRoutine(name, load_unit, rep_unit);
+            final Dialog dialog = new Dialog(AddExerciseToRoutine.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_box);
+            TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
+            text.setText(R.string.alert);
+            TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
+            image.setText(R.string.alert_exercise_added);
+            Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
+            // if button is clicked, close the custom dialog
+            dialogButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    txt_loadunit.setText("");
+                    txt_name.setText("");
+                    txt_repunit.setText("");
+                    dialog.dismiss();
+
+                }
+            });
+            dialog.show();
+
         }
         else{ //MESSAGE SHOWING THAT THE EXERCISE IS ALREADY IN THE DB
             final Dialog dialog = new Dialog(AddExerciseToRoutine.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_box);
             TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
-            text.setText("Alert message:");
+            text.setText(R.string.alert);
             TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
-            image.setText("The exercise "+ name + " is already in our database. If you want to add another exercise, try a different name.");
+            image.setText(R.string.alert_name_db);
             Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
             // if button is clicked, close the custom dialog
             dialogButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
-
                 }
             });
             dialog.show();

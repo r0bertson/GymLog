@@ -12,7 +12,7 @@
     <Button
         android:layout_width="149dp"
         android:layout_height="wrap_content"
-        android:text="New Exercise"
+        android:text="@string/bt_add_exercise"
         android:id="@+id/bt_add_exercise"
         android:layout_gravity="center_horizontal"
         android:onClick="newExerciseClick" />
@@ -20,7 +20,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register Activity"
+        android:text="@string/bt_reg_activity"
         android:id="@+id/bt_reg_activity"
         android:layout_gravity="center_horizontal"
         android:onClick="registerActivityClick" />

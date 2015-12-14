@@ -1,5 +1,6 @@
 package lima.r0bertson.uwlgymlog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class FormatData extends AppCompatActivity {
+public class FormatData extends Activity {
     TextView formula;
     int[] values;
 
@@ -22,15 +23,16 @@ public class FormatData extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_format_data);
+        formula = (TextView) findViewById(R.id.txt_formula);
+        values = newFormula(); // creates a new formula
+        formula.setText(values[0] + " + " + values[1] + " - " + values[2] + " = ?"); //displays the formula
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_format_data, menu);
-        formula = (TextView) findViewById(R.id.txt_formula);
-        values = newFormula(); // creates a new formula
-        formula.setText(values[0] + " + " + values[1] + " - " + values[2] + " = ?"); //displays the formula
         return true;
     }
 
@@ -91,29 +93,29 @@ public class FormatData extends AppCompatActivity {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_box);
             TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
-            text.setText("Alert message:");
+            text.setText(R.string.alert);
             TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
-            image.setText("The database was successfully formatted.");
+            image.setText(R.string.alert_db_formatted);
             Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
             // if button is clicked, close the custom dialog
             dialogButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dialog.dismiss();
+                    dialog.dismiss();finish();
 
                 }
             });
             dialog.show();
-            finish();//closing the intent
+            //closing the intent
         }
         else{
             final Dialog dialog = new Dialog(FormatData.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_box);
             TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
-            text.setText("Alert message:");
+            text.setText(R.string.alert);
             TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
-            image.setText("The provided result is incorrect.");
+            image.setText(R.string.alert_incorrect_result);
             Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
             // if button is clicked, close the custom dialog
             dialogButton.setOnClickListener(new View.OnClickListener() {

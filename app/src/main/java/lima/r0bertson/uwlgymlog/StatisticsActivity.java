@@ -40,6 +40,7 @@ public class StatisticsActivity extends Activity {
 
                 String selected = spinner_stat.getSelectedItem().toString();
                 //connect to the database and get data
+                graph.removeAllSeries();
                 connectAndRefresh(selected);
             }
             @Override
@@ -62,16 +63,19 @@ public class StatisticsActivity extends Activity {
      */
     public void setGraph(ArrayList<Statistics> st){
         //defines an array of datapoint
+        BarGraphSeries<DataPoint> series2;
         DataPoint[] datapoint = new DataPoint[st.size()];
+
         for(int i = 0; i<st.size();i++){
             datapoint[i] = new DataPoint(i,st.get(i).getLoad());
         }
-        BarGraphSeries<DataPoint> series2 = new BarGraphSeries<DataPoint>(datapoint);
-
+        series2 = new BarGraphSeries<DataPoint>(datapoint);
+        series2.resetData(datapoint);
         graph.addSeries(series2);
         series2.setSpacing(25);
         series2.setDrawValuesOnTop(true);
         series2.setValuesOnTopColor(Color.BLACK);
+
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,17 +21,22 @@ import java.util.List;
 
 public class RegisterNewActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
-    private EditText txt_load;// = (EditText) findViewById(R.id.t_load);
-    private EditText txt_repetition; //= (EditText) findViewById(R.id.t_repetition);
-    private Spinner spinner; //= //(Spinner) findViewById(R.id.spinnerExerciseList);
+    private EditText txt_load;
+    private EditText txt_repetition;
+    private Spinner spinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_new_activity);
         txt_load = (EditText) findViewById(R.id.t_load);
         txt_repetition = (EditText) findViewById(R.id.t_repetition);
+        //set the default keyboard to be the numerical
+        txt_load.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+        txt_repetition.setRawInputType(InputType.TYPE_CLASS_NUMBER);
+
+
         spinner = (Spinner) findViewById(R.id.spinnerExerciseList);
-        loadSpinnerData();
+        loadSpinnerData(); //load spinner data
     }
 
     @Override
@@ -45,11 +51,6 @@ public class RegisterNewActivity extends Activity implements AdapterView.OnItemS
                                long id) {
         // On selecting a spinner item
         String exercise = parent.getItemAtPosition(position).toString();
-
-        // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "You selected: " + exercise,
-                Toast.LENGTH_LONG).show();
-
     }
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
@@ -93,9 +94,7 @@ public class RegisterNewActivity extends Activity implements AdapterView.OnItemS
     public void addActivity(View view){
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
         String name = spinner.getSelectedItem().toString();
-        int load = Integer.parseInt(txt_load.getText().toString());
-        int repetition = Integer.parseInt(txt_repetition.getText().toString());
-        if(txt_load.toString().equals("")){
+        if(editTextIsEmpty(txt_load)){
             //SEND MESSAGE WARNING
             final Dialog dialog = new Dialog(RegisterNewActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -103,9 +102,9 @@ public class RegisterNewActivity extends Activity implements AdapterView.OnItemS
 
             // set the custom dialog components - text and button
             TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
-            text.setText("Alert message:");
+            text.setText(R.string.alert);
             TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
-            image.setText("You must provide a value to the load field.");
+            image.setText(R.string.alert_blank_load);
             Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
             // if button is clicked, close the custom dialog
             dialogButton.setOnClickListener(new View.OnClickListener() {
@@ -117,18 +116,17 @@ public class RegisterNewActivity extends Activity implements AdapterView.OnItemS
                 }
             });
             dialog.show();
-        }else if(txt_repetition.toString().equals("")){
+        }else if(editTextIsEmpty(txt_repetition)){
             //SEND MESSAGE WARNING
 
             final Dialog dialog = new Dialog(RegisterNewActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_box);
-
             // set the custom dialog components - text and button
             TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
-            text.setText("Alert message:");
+            text.setText(R.string.alert);
             TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
-            image.setText("You must provide a value to the repetition field.");
+            image.setText(R.string.alert_blank_rep);
             Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
             // if button is clicked, close the custom dialog
             dialogButton.setOnClickListener(new View.OnClickListener() {
@@ -143,17 +141,45 @@ public class RegisterNewActivity extends Activity implements AdapterView.OnItemS
         }
         else {
 
+            //REGISTER THE ACTIVITY INTO THE EXERCISE TABLE
+            int load = Integer.parseInt(txt_load.getText().toString());
+            int repetition = Integer.parseInt(txt_repetition.getText().toString());
             Exercise ex = new Exercise(name, load, repetition);
-            //Product product =  new Product(productBox.getText().toString(), quantity);
+
 
             dbHandler.addExercise(ex);
-            finish();
-            //DECIDE IF FINISH THE INTENT OR BLANK THE FIELDS TO ADD ANOTHER
+            final Dialog dialog = new Dialog(RegisterNewActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_box);
+            TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
+            text.setText(R.string.alert);
+            TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
+            image.setText(R.string.alert_activity_added);
+            Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
+            // if button is clicked, close the custom dialog
+            dialogButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    txt_load.setText("");
+                    txt_repetition.setText("");
+                    dialog.dismiss();
+
+                }
+            });
+            dialog.show();
         }
+
+
     }
     public void cancelClick(View view){
         finish();
     }
+
+    //verifies if the edittext is empty
+    public boolean editTextIsEmpty(EditText et) {
+        return et.getText().toString().trim().length() == 0;
+    }
+
 
     public void clickIconMenu(View view){
         Intent intent = new Intent(RegisterNewActivity.this, MenuActivity.class);

@@ -1,24 +1,67 @@
 <resources>
     <string name="app_name">UWLGymLog</string>
-    <string name="addExercise">UWLGymLog</string>
-    <string name="bottombar">Botton Bar</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_add_routine">AddRoutine</string>
-    <string name="title_activity_add_exercise">AddExercise</string>
-    <string name="title_activity_add_new_exercise">AddNewExercise</string>
 
-    <string-array name = "options">
-        <item>Home</item>
-        <item>Statistics</item>
-        <item>Format Data</item>
-        <item>About</item>
-        <item>Back</item>
-    </string-array>
+    <!--   STRINGS OF THE ACTIVITIES       -->
+        <string name="addExercise">UWLGymLog</string>
+        <string name="action_settings">Settings</string>
+        <string name="title_activity_add_routine">AddRoutine</string>
+        <string name="title_activity_add_exercise">AddExercise</string>
+        <string name="title_activity_add_new_exercise">AddNewExercise</string>
+        <string name="title_activity_format_data">FormatData</string>
+        <string name="title_activity_about">AboutActivity</string>
+        <string name="title_activity_menu">MenuActivity</string>
+        <string name="title_activity_statistics">StatisticsActivity</string>
 
-    <string name="about">Texto falando sobre o app e o desenvolvedor...</string>
-    <string name="title_activity_format_data">FormatData</string>
-    <string name="title_activity_about">AboutActivity</string>
-    <string name="title_activity_menu">MenuActivity</string>
-    <string name="title_activity_statistics">StatisticsActivity</string>
+    <!-- MENU OPTIONS -->
+        <string-array name = "options">
+            <item>Home</item>
+            <item>Statistics</item>
+            <item>Format Data</item>
+            <item>About</item>
+            <item>Back</item>
+        </string-array>
+
+
+    <!-- ABOUT TEXT AND CONTACT -->
+        <string name="about">This app was developed as a final project for the module Mobile Application
+                             Development, at the University of West London in 2015-2016.
+                             My name is Robertson Lima and I am the developer. If you have any
+                             comment or suggestion, you can send me an email or find me
+                             on facebook. Thanks for using UWLGymLog.</string>
+
+        <string name="contactme">21294313@student.uwl.ac.uk</string>
+
+
+    <!-- BUTTON TEXT -->
+        <string name="bt_format">Format</string>
+        <string name="bt_add_exercise">Add exercise</string>
+        <string name="bt_reg_activity">Register activity</string>
+        <string name="bt_add">Add</string>
+        <string name="bt_cancel">Cancel</string>
+
+
+
+    <!-- LABELS -->
+
+        <string name="lb_exercise_name">Exercise name</string>
+        <string name="lb_load_unit">Load unit</string>
+        <string name="lb_rep_unit">Repetition unit</string>
+        <string name="lb_load">Insert load</string>
+        <string name="lb_rep">Insert number \n of repetitions</string>
+
+
+
+    <!-- ALERT MESSAGES -->
+    <string name="alert">Alert message:</string>
+    <string name="alert_blank_load">You must provide a value to the load field.</string>
+    <string name="alert_blank_rep">You must provide a value to the repetition field.</string>
+    <string name="alert_db_formatted">The database was successfully formatted.</string>
+    <string name="alert_incorrect_result">The result provided is incorrect..</string>
+
+    <string name="alert_blank_name">You must provide at least a name to the exercise.</string>
+    <string name="alert_name_db">The exercise name typed is already in our database. If you want to add another exercise, try a different name.</string>
+    <string name="alert_exercise_added">The exercise was inserted into the database.</string>
+    <string name="alert_activity_added">Your activity record was inserted into the database.</string>
+
+
 </resources>

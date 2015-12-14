@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
-        android:text="Alert Message"
+        android:text="@string/alert"
         android:textColor="#000000"/>
 
 

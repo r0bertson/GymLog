@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text=""
         android:id="@+id/txt_formula"
         android:layout_gravity="center_horizontal" />
 
@@ -25,7 +25,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FORMAT"
+        android:text="@string/bt_format"
         android:id="@+id/bt_format"
         android:layout_gravity="center_horizontal"
         android:onClick="formatClick" />

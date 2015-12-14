@@ -38,9 +38,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Insert load"
+            android:text="@string/lb_load"
             android:id="@+id/entryExcersiseLoad"
-            android:layout_below="@+id/include"/>
+            android:layout_below="@+id/include"
+            android:inputType="number" />
 
         <EditText
             android:layout_width="170dp"
@@ -58,7 +59,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Insert number \nof repetitions"
+            android:text="@string/lb_rep"
             android:id="@+id/textView_entryrepetition"
             android:layout_below="@+id/include"
             android:layout_alignParentLeft="true"
@@ -86,7 +87,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ADD EXERCISE"
+            android:text="@string/bt_add_exercise"
             android:id="@+id/bt_add_exercise"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/txt_formula"
@@ -96,7 +97,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CANCEL"
+            android:text="@string/bt_cancel"
             android:id="@+id/bt_cancel"
             android:layout_alignTop="@+id/bt_add_exercise"
             android:layout_toRightOf="@+id/bt_add_exercise"
