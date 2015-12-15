@@ -50,14 +50,16 @@
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lb_rep_unit"
-            android:id="@+id/textView_entryrepunit" />
+            android:id="@+id/textView_entryrepunit"
+            android:layout_marginBottom="20dp"/>
 
         <EditText
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:id="@+id/t_rep_unit"
 
-            android:editable="true" />
+            android:editable="true"
+            android:layout_marginBottom="20dp"/>
     </GridLayout>
 
 
