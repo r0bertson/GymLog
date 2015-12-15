@@ -49,9 +49,40 @@ public class AddExerciseToRoutine extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    //in case of the eventual need to destruction of the activity, this method saves current
+    // values of the edittexts into the bundle
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the bundle
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+        savedInstanceState.putString("name", txt_name.getText().toString());
+        savedInstanceState.putString("loadunit", txt_loadunit.getText().toString());
+        savedInstanceState.putString("repunit", txt_repunit.getText().toString());
+        // etc.
+    }
+
+    //in case of recreation of the activity, this method restores the values
+    // that ware on the edittexts before the destruction
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore UI state from the savedInstanceState.
+        // This bundle has also been passed to onCreate.
+        String nameSaved = savedInstanceState.getString("name");
+        String loadunitSaved = savedInstanceState.getString("loadunit");
+        String repunitSaved = savedInstanceState.getString("repunit");
+        txt_name.setText(nameSaved);
+        txt_loadunit.setText(loadunitSaved);
+        txt_repunit.setText(repunitSaved);
+
+    }
     //method of the cancel button
     public void cancelClick(View view){
-        finish();
+
+        finish();//finish the activity
     }
 
     /**

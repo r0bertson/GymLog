@@ -73,19 +73,48 @@ public class RegisterNewActivity extends Activity implements AdapterView.OnItemS
     }
 
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the bundle
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+
+        //save spinner actual spinner selection
+        savedInstanceState.putInt("spinnerPos", spinner.getSelectedItemPosition());
+        //save string that is on load box
+        savedInstanceState.putString("load", txt_load.getText().toString());
+        // save string that is on repetition box
+        savedInstanceState.putString("repetition", txt_repetition.getText().toString());
+        // etc.
+    }
+
+    //in case of recreation of the activity, this method restores the values
+    // that ware on the edittexts before the destruction
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Restore UI state from the savedInstanceState.
+        // This bundle has also been passed to onCreate.
+        spinner.getSelectedItemPosition();
+        int spinnerPosition = savedInstanceState.getInt("spinnerPos");
+        String loadunitSaved = savedInstanceState.getString("load");
+        String repunitSaved = savedInstanceState.getString("repetition");
+
+        txt_load.setText(loadunitSaved); //set load
+        txt_repetition.setText(repunitSaved); // set repetition
+        spinner.setSelection(spinnerPosition); //set spinner position
+    }
+
     private void loadSpinnerData() {
         // database handler
         MyDBHandler db = new MyDBHandler(this, null, null, 1);
-
         // Spinner Drop down elements
         List<String> exercises = db.getAllExercises();
-
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, exercises);
-
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
-
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
     }
@@ -171,8 +200,9 @@ public class RegisterNewActivity extends Activity implements AdapterView.OnItemS
 
 
     }
+    //button action on click
     public void cancelClick(View view){
-        finish();
+        finish(); //close activity
     }
 
     //verifies if the edittext is empty
@@ -180,7 +210,7 @@ public class RegisterNewActivity extends Activity implements AdapterView.OnItemS
         return et.getText().toString().trim().length() == 0;
     }
 
-
+   //logo click, calls menu activity
     public void clickIconMenu(View view){
         Intent intent = new Intent(RegisterNewActivity.this, MenuActivity.class);
         startActivity(intent);

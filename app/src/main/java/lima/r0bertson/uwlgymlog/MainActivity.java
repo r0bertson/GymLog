@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
-
+        // Get the database reference in the device
         MyDBHandler db = new MyDBHandler(this, null, null, 1);
         db.getWritableDatabase();
     }

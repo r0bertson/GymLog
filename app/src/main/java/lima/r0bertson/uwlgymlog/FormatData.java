@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import java.util.Random;
 
 public class FormatData extends Activity {
     TextView formula;
+    EditText userInputText;
     int[] values;
 
     @Override
@@ -26,7 +28,8 @@ public class FormatData extends Activity {
         formula = (TextView) findViewById(R.id.txt_formula);
         values = newFormula(); // creates a new formula
         formula.setText(values[0] + " + " + values[1] + " - " + values[2] + " = ?"); //displays the formula
-
+        userInputText = (EditText) findViewById(R.id.edit_formula);
+        userInputText.setRawInputType(InputType.TYPE_CLASS_NUMBER); //set the keyboard to be the numerical type
     }
 
     @Override
@@ -56,7 +59,7 @@ public class FormatData extends Activity {
      * this method is called in every creation of this activity
      * so, the expression can be different on every load.
      */
-    public int[] newFormula(){
+    public int[] newFormula() {
         Random r = new Random();
         int x, y, z;
         int total;
@@ -66,10 +69,10 @@ public class FormatData extends Activity {
         total = x + y - z;
 
         int[] values = new int[4];
-        values[0]=x;
-        values[1]=y;
-        values[2]=z;
-        values[3]=total;
+        values[0] = x;
+        values[1] = y;
+        values[2] = z;
+        values[3] = total;
         return values;
 
     }
@@ -80,42 +83,65 @@ public class FormatData extends Activity {
      * if not, notify. if yes, try to format and recreate the database.
      * Then, show a message and finish the intent.
      */
-    public void formatClick(View view){
+    public void formatClick(View view) {
         EditText userInput = (EditText) findViewById(R.id.edit_formula);
-        System.out.println(userInput.getText().toString() + "     " + values [3]);
-        int result = Integer.parseInt(userInput.getText().toString());
-        if(validateFormula(values[3], result)){ //verifying answer
-            MyDBHandler db = new MyDBHandler(this, null, null, 1);
-            db.format(); //performing format and recreation
+        System.out.println(userInput.getText().toString() + "     " + values[3]);
+
+        if (!editTextIsEmpty(userInput)) {
+            //NOT EMPTY
+            int result = Integer.parseInt(userInput.getText().toString());
+            if (validateFormula(values[3], result)) { //verifying answer
+                MyDBHandler db = new MyDBHandler(this, null, null, 1);
+                db.format(); //performing format and recreation
 
 
+                final Dialog dialog = new Dialog(FormatData.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_box);
+                TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
+                text.setText(R.string.alert);
+                TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
+                image.setText(R.string.alert_db_formatted);
+                Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
+                // if button is clicked, close the custom dialog
+                dialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        finish();
+
+                    }
+                });
+                dialog.show();
+                //closing the intent
+            } else {
+                //EMPTY
+                final Dialog dialog = new Dialog(FormatData.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_box);
+                TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
+                text.setText(R.string.alert);
+                TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
+                image.setText(R.string.alert_incorrect_result);
+                Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
+                // if button is clicked, close the custom dialog
+                dialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+
+                    }
+                });
+                dialog.show();
+            }
+        } else { //formula is not typed, edittext blank
             final Dialog dialog = new Dialog(FormatData.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_box);
             TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
             text.setText(R.string.alert);
             TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
-            image.setText(R.string.alert_db_formatted);
-            Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
-            // if button is clicked, close the custom dialog
-            dialogButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();finish();
-
-                }
-            });
-            dialog.show();
-            //closing the intent
-        }
-        else{
-            final Dialog dialog = new Dialog(FormatData.this);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_box);
-            TextView text = (TextView) dialog.findViewById(R.id.txtDiaTitle);
-            text.setText(R.string.alert);
-            TextView image = (TextView) dialog.findViewById(R.id.txtDiaMsg);
-            image.setText(R.string.alert_incorrect_result);
+            image.setText(R.string.alert_blank_formula);
             Button dialogButton = (Button) dialog.findViewById(R.id.btnOk);
             // if button is clicked, close the custom dialog
             dialogButton.setOnClickListener(new View.OnClickListener() {
@@ -130,20 +156,23 @@ public class FormatData extends Activity {
     }
 
     //VALIDATE IF THE USER INSERTED THE RIGHT ANSWER TO THE EXPRESSION
-    public boolean validateFormula(int a, int b){
-        if (a == b){
+    public boolean validateFormula(int a, int b) {
+        if (a == b) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
 
+    //verifies if the edittext is empty
+    public boolean editTextIsEmpty(EditText et) {
+        return et.getText().toString().trim().length() == 0;
+    }
 
     /**
      * Method that allows the invocation of the menu in this activity
      */
-    public void clickIconMenu(View view){
+    public void clickIconMenu(View view) {
         Intent intent = new Intent(FormatData.this, MenuActivity.class);
         startActivity(intent);
     }

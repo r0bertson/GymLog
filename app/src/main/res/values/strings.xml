@@ -55,6 +55,7 @@
     <string name="alert">Alert message:</string>
     <string name="alert_blank_load">You must provide a value to the load field.</string>
     <string name="alert_blank_rep">You must provide a value to the repetition field.</string>
+    <string name="alert_blank_formula">You must provide a value that answers the expression in order to format the database.</string>
     <string name="alert_db_formatted">The database was successfully formatted.</string>
     <string name="alert_incorrect_result">The result provided is incorrect..</string>
 
