@@ -14,8 +14,7 @@ You can execute the source using the virtual device tool on Android Studio or yo
 
 
 ### Screenshots ###
-
-![Screenshot](demo/uwlgym1.png) ![Screenshot](demo/uwlgym2.png)
+There are screenshots of the application running on the /demo/ folder.
 
 ### Need help to understand the source? ###
 
